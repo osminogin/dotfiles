@@ -1,10 +1,8 @@
+default: install
 
-init:
-	@git submodule init
+install:
+	@mkdir -p ~/.config/systemd/user && \
+		cp -R systemd-units/* ~/.config/systemd/user && \
+		systemctl enable --user tmux@.service
 
-default: sync
-
-sync:
-	@git submodule update
-
-.PHONY: default sync init
+.PHONY: default install
