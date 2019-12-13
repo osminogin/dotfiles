@@ -1,0 +1,15 @@
+[Unit]
+Description=Terminal Multiplexor (session %i)
+
+[Service]
+Type=forking
+TasksMax=4096
+Environment="TMUX="
+WorkingDirectory=%t
+ExecStart=/usr/bin/tmux -S %t/tmux-%i new-session -d -s %i -c %h
+ExecStop=/usr/bin/tmux -v -S %t/tmux-%i kill-session -t %i
+Restart=always
+
+[Install]
+DefaultInstance=default
+WantedBy=default.target
