@@ -1,8 +1,32 @@
+MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+CURRENT_DIR := $(patsubst %/,%,$(dir $(MKFILE_PATH)))
+
+
 default: install
 
-install:
-	@mkdir -p ~/.config/systemd/user && \
-		cp -R systemd-units/* ~/.config/systemd/user && \
-		systemctl enable --user tmux@.service
+install: packages setup
 
-.PHONY: default install
+setup: zsh tmux
+
+packages:
+	@sudo apt update
+	@sudo apt install -y tmux zsh lvm2 virtualbox virtualbox-guest-additions-iso nautilus-dropbox
+
+fonts:
+	@sudo apt install -y ttf-bitstream-vera fonts-terminus fonts-roboto fonts-lato fonts-liberation fonts-hack fonts-inconsolata fonts-firacode fonts-open-sans fonts-powerline
+
+zsh:
+	@sudo ln -sf $(CURRENT_DIR)/zshrc ~/.zshrc
+	@sudo chsh -s /bin/zsh $(USER)
+
+tmux:
+	@sudo ln -sf $(CURRENT_DIR)/tmux.conf ~/.tmux.conf
+	# Start tmux in current user session
+	@mkdir -p ~/.config/systemd/user
+	@cp -R $(CURRENT_DIR)/systemd-units/tmux@.service ~/.config/systemd/user
+	@systemctl enable --user tmux@.service
+
+docker:
+	# Install Docker CE from original repository...
+
+.PHONY: default install packages fonts setup zsh tmux docker
