@@ -1,8 +1,8 @@
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh
-[submodule "plugins/zsh-autosuggestions"]
-	path = plugins/zsh-autosuggestions
+[submodule "zsh-autosuggestions"]
+	path = zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule "base16-shell"]
 	path = base16-shell
