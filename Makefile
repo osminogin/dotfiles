@@ -4,9 +4,9 @@ CURRENT_DIR := $(patsubst %/,%,$(dir $(MKFILE_PATH)))
 
 default: install
 
-install: packages setup
+install: update packages setup
 
-setup: zsh tmux
+setup: zsh tmux docker
 
 packages:
 	@sudo apt update
@@ -26,7 +26,10 @@ tmux:
 	@cp -R $(CURRENT_DIR)/systemd-units/tmux@.service ~/.config/systemd/user
 	@systemctl enable --user tmux@.service
 
+update:
+	@git submodule update --remote --merge
+
 docker:
 	# Install Docker CE from original repository...
 
-.PHONY: default install packages fonts setup zsh tmux docker
+.PHONY: default install packages fonts setup zsh tmux docker update
