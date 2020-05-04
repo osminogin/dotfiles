@@ -13,7 +13,9 @@ packages:
 	@sudo apt install -y tmux zsh lvm2 virtualbox virtualbox-guest-additions-iso nautilus-dropbox
 
 fonts:
-	@sudo apt install -y ttf-bitstream-vera fonts-terminus fonts-roboto fonts-lato fonts-liberation fonts-hack fonts-inconsolata fonts-firacode fonts-open-sans fonts-powerline
+	@sudo apt install -y ttf-bitstream-vera fonts-terminus fonts-roboto fonts-lato fonts-liberation \
+						fonts-hack fonts-inconsolata fonts-firacode fonts-open-sans fonts-powerline
+	# TODO: Add SourceCodePro fonts
 
 zsh:
 	@sudo ln -sf $(CURRENT_DIR)/zshrc ~/.zshrc
